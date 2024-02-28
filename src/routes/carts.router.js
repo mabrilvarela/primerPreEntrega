@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const CartManager = require("../controllers/cartManager-db.js");
+const cartManager = new CartManager();
+
 router.post("/api/carts", async (req, res) => {
     const newCarts = req.body;
     const newCart = {
@@ -33,7 +36,7 @@ router.get("/api/carts/:cid", async (req, res) => {
     let id = req.params.cid;
 
     try {
-        const cart = await cartManager.getProductById(parseInt(id));
+        const cart = await cartManager.getProductById(id);
         if(!cart) {
             res.json({
                 error: "Producto no encontrado"
